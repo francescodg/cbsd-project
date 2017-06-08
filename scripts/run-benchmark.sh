@@ -21,16 +21,17 @@ echo "All Done."
 
 # Prepare data
 echo "Preparing data..."
-output="output" # TODO: set as date
+output=$(date +%F_%T)
 bash scripts/disk-prepare-data.sh "$folder/*" benchmarks/$benchmark/$output
 echo "Created report data file."
 
-# Draw plots
-echo "Drawing plots..."
-cd benchmarks/$benchmark
-python ../../scripts/plot_data.py ../../config/plot-$benchmark.json
-cd ../../
-echo "Drawing done."
+# # Draw plots
+# echo "Drawing plots..."
+# cd benchmarks/$benchmark
+# python ../../scripts/aggregator.py ../../config/plot-benchmark.json 
+# python ../../scripts/plot_data.py ../../config/plot-$benchmark.json benchmarks/$benchmark/$output.values
+# cd ../../
+# echo "Drawing done."
 
 # Clean up benchmark folder
 echo "Clean up..."

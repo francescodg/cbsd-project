@@ -11,19 +11,31 @@ fi
 
 # Create folder to store data
 folder=pool/$benchmark/$(date +%F_%T)
-
 mkdir -p $folder
+echo "Created pool folder."
 
 # TODO: Run benchmarks
+echo "Running benchmarks..."
 cp pool/data/container-* $folder
+echo "All Done."
 
 # Prepare data
-bash scripts/disk-prepare-data.sh "$folder/*" benchmarks/$benchmark/"output"
+echo "Preparing data..."
+output="output" # TODO: set as date
+bash scripts/disk-prepare-data.sh "$folder/*" benchmarks/$benchmark/$output
+echo "Created report data file."
 
-# TODO: Draw plots
+# Draw plots
+echo "Drawing plots..."
 cd benchmarks/$benchmark
 python ../../scripts/plot_data.py ../../config/plot-$benchmark.json
 cd ../../
+echo "Drawing done."
 
 # Clean up benchmark folder
+echo "Clean up..."
 rm -rf $folder
+rm benchmarks/$benchmark/$output.values
+echo "Done."
+
+echo "Data Report can be found in benchmarks/$benchmark"

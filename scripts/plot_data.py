@@ -42,8 +42,6 @@ def run_gnuplot(options, series):
     commands.append(plotSeriesCommands)
     commands = "; ".join(commands)
 
-    print "Commands", commands
-
     subprocess.call(["gnuplot", "-e", commands])
 
 
@@ -71,8 +69,6 @@ def obtain_params(plot):
                 "title": s["title"] + " mean",
                 "color": s["color"]
             })
-
-        print "Series", series
 
     return (options, series)
 

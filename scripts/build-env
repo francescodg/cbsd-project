@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Create benchmark subfolders for each benchmark specified in config file
+folders=$(grep -v "#" config/build-env.config)
+
+for folder in $folders; do
+    mkdir -p benchmarks/$folder/
+done
+
+mkdir pool

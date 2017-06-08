@@ -1,0 +1,55 @@
+{
+    "plots": [
+	{
+	    "options": {
+		"title": "First",
+		"ylabel": "Transfer rate [Kbytes/sec]",
+		"output": "plot-1.png"
+	    },
+	    "series": [
+		{
+		    "input": "output.values",
+		    "column": 1,
+		    "title": "Container",
+		    "pt": 5,
+		    "color": "red",
+		    "show mean": true
+		},
+		{
+		    "input": "output.values",
+		    "column": 1,
+		    "title": "Host",
+		    "pt": 5,
+		    "color": "blue",
+		    "show mean": true
+		}
+	    ]
+	},
+
+	{
+	    "options": {
+		"title": "Second",
+		"ylabel": "Transfer rate [Kbytes/sec]",
+		"output": "plot-2.png"
+	    },
+	    "series": [
+		{
+		    "input": "output.values",
+		    "column": 1,
+		    "title": "Container",
+		    "pt": 5,
+		    "color": "red",
+		    "show mean": true
+		},
+		{
+		    "input": "output.values",
+		    "column": 1,
+		    "title": "Host",
+		    "pt": 5,
+		    "color": "blue",
+		    "show mean": true
+		}
+	    ]
+	}
+    ]
+}

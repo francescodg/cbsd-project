@@ -8,19 +8,13 @@
 	    },
 	    "series": [
 		{
-		    "column": 1,
+		    "input": "host.values",
+		    "column": 3,
 		    "title": "Container",
 		    "pt": 5,
 		    "color": "red",
 		    "show mean": true
-		},
-		{
-		    "column": 2,
-		    "title": "Host",
-		    "pt": 5,
-		    "color": "blue",
-		    "show mean": true
-		}
+		}		
 	    ]
 	},
 
@@ -32,14 +26,16 @@
 	    },
 	    "series": [
 		{
-		    "column": 1,
+		    "input": "container.values",
+		    "column": 3,
 		    "title": "Container",
 		    "pt": 5,
 		    "color": "red",
 		    "show mean": true
 		},
 		{
-		    "column": 2,
+		    "input": "host.values",
+		    "column": 3,
 		    "title": "Host",
 		    "pt": 5,
 		    "color": "blue",

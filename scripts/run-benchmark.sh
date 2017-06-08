@@ -33,6 +33,12 @@ echo "Created report data file."
 # cd ../../
 # echo "Drawing done."
 
+echo "Drawing plots..."
+cd benchmarks/$benchmark
+python ../../scripts/plot_data.py ../../config/plot-$benchmark.json values
+cd ../../
+echo "Drawing done."
+
 # Clean up benchmark folder
 echo "Clean up..."
 rm -rf $folder

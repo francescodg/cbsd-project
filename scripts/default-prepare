@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Preparing data"
+tail -n+4 host.data > host.values
+tail -n+4 container.data > container.values

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Plotting data"
+python ../../scripts/plot_data.py template.json

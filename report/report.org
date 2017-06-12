@@ -1,9 +1,41 @@
 #+TITLE: Linux Containers Review
 #+AUTHOR: Francesco de Gioia
+
+#+LaTeX: \pagebreak
+
 \begin{abstract}
 \end{abstract}
+
 * Introduction
+ #+BEGIN_QUOTE
+"It works on my machine." -- Unknown
+ #+END_QUOTE
 ** Containers
+Operating-system-level virtualization is a computer virtualization method in which the kernel of an operating system allows the existence of multiple isolated user-space instances.
+Such instances are sometimes called containers, virtualization engines (VEs) or jails (FreeBSD jail or chroot jail).
+
+Multiple instances can be created with different operating systems all sharing the same kernel. Each instance, from here on referred as /container/, can be configured to be
+accessible from the outside world by setting up an appropriate interface. Also, containers can communicate with each other by sending packets to the destination interface as if they were
+separate machines on the same physical network.
+
+The main difference between a container and a virtual machine is that a virtual machine is built upon a layer of virtualized hardware interfaces. This additional layer of indirection 
+introduces a significant amount of latency that may be untolerable for specific applications.\\
+Containers create isolated environments by relying on particular features of the underlying kernel. LXC, Linux Containers, uses the Unix kernel features /cgroups/ and /namespaces/ to
+provide isolation mechanisms.\\
+The strict dependency of containerization techniques on the underlying kernel, implies that container instances must share the same kernel. This may be a disadvantage for applications
+in which different operating systems, i.e. Windows and Linux, must be able to co-exist on the same host. For this kind of applications, virtual machines still provide feasible solutions.
+
+Since containers may be considered as "light virtual machines", many containers can be kept spinning on the same host. This allows developer to create complex, full stack environments
+with different configurations that can be used for testing or profiling.\\
+Containers can be used to simulate and develop distributed environments that can be easily moved in the cloud with minor modifications.\\
+Additionally, containers allow developers to create microservice architectures without incurring in the overhead of virtual machines.\\
+For cloud space providers, containers are an efficient solution to create user-specific isolated environments that can be set-up with libraries, frameworks and databases as requested,
+without interfering with existing services.
+
+- [[https://en.wikipedia.org/wiki/Operating-system-level_virtualization]]
+- [[https://www.linux.com/news/containers-vs-hypervisors-choosing-best-virtualization-technology]]
+- [[https://blog.risingstack.com/operating-system-containers-vs-application-containers/][OS Container vs Application Container]]
+
 ** Virtual Machines
 ** Microservices, a Container usage example
 * Benchmarks: Procedure and Results

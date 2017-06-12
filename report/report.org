@@ -1,0 +1,17 @@
+#+TITLE: Linux Containers Review
+#+AUTHOR: Francesco de Gioia
+\begin{abstract}
+\end{abstract}
+* Introduction
+** Containers
+** Virtual Machines
+** Microservices, a Container usage example
+* Benchmarks: Procedure and Results
+** Environment Setup
+# Describe architecture on which the benchmarks are run
+** Networking: Apache Benchmark
+** Disk I/O: FIO Benchmark
+* Environment for test replication
+** Setup scripts
+** Benchmark runners
+* Conclusions

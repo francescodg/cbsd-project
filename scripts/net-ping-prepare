@@ -1,0 +1,20 @@
+#!/bin/bash
+
+function prepare_data() {
+    OUTPUT=$1
+    INPUT=$2
+
+    echo "# Min, Average, Max, Min Dev" > $OUTPUT
+
+    for i in $INPUT; do
+    	cat $i | grep rtt | cut -d '=' -f 2 | tr -d ' ' | tr -s '/' ' ' | sed s/ms// >> $OUTPUT
+    done
+}
+
+prepare_data host.data "host_*"
+prepare_data container.data "container_*"
+
+tail -n+2 host.data | tr -d , > host.values
+tail -n+2 container.data | tr -d , > container.values
+
+

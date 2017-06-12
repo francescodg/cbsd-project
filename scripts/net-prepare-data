@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function prepare_data() {
+    OUTPUT=$1
+    INPUT=$2
+
+    echo "# Document length [bytes]" > $OUTPUT
+    echo "# Requests per second [#/sec] (mean), Transfer rate [Kbytes/sec], Time per request [ms] (mean)" >> $OUTPUT
+
+    for i in $INPUT; do
+    	REQUESTS_PER_SECOND=$(cat $i | grep "Requests per second" | tr -d -c [:digit:].'\n')
+    	TRANSFER_RATE=$(cat $i | grep "Transfer rate" | tr -d -c [:digit:].'\n')
+    	TIME_PER_REQUEST=$(cat $i | grep "Time per request" | head -n 1 | tr -d -c [:digit:].)       
+    	echo "$REQUESTS_PER_SECOND, $TRANSFER_RATE, $TIME_PER_REQUEST" >> $OUTPUT
+    done
+}
+
+prepare_data host.data "host_*"
+prepare_data container.data "container_*"
+
+tail -n+3 host.data | tr -d , > host.values
+tail -n+3 container.data | tr -d , > container.values

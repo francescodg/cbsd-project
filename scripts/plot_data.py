@@ -23,10 +23,11 @@ def run_gnuplot(options, series):
         "set term png",
         "set output \"{output}\""]    
     
-    if options.has_key("yrange"):
+    if options["yrange"] is not None:
         commands.append("set yrange {yrange}")
 
     commands = [cmd.format(**options) for cmd in commands]
+    print commands
 
     plotSeriesCommands = []
 
@@ -49,7 +50,8 @@ def obtain_params(plot):
     options = {
         "title": plot["options"]["title"],
         "ylabel": plot["options"]["ylabel"],
-        "output": plot["options"]["output"]
+        "output": plot["options"]["output"],
+        "yrange": plot["options"]["yrange"] if plot["options"].has_key("yrange") else None
     }
 
     series = []

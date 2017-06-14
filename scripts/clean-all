@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm -f container_*
+rm -f host_*
+rm -f namespace_*
+
+rm *.values

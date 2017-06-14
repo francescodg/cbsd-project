@@ -1,0 +1,4 @@
+- Start namespace and container services
+- Run ./repeat {COUNT}
+
+This example shows that for payloads < 2048 bytes (2 KB), namespace may be worse than containers. 

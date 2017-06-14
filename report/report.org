@@ -41,6 +41,15 @@ without interfering with existing services.
 * Benchmarks: Procedure and Results
 ** Environment Setup
 # Describe architecture on which the benchmarks are run
+
+- Descrizione architettura del sistema (CPU (turbo/hyperboost), RAM, Disk)
+- Descrizione dei benchmark
+
+*** Adopted Procedure
+
+*** Results
+
+
 ** Networking: Apache Benchmark
 ** Disk I/O: FIO Benchmark
 * Environment for test replication

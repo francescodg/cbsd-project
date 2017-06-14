@@ -16,6 +16,8 @@ function prepare_data() {
 
 prepare_data host.data "host_*"
 prepare_data container.data "container_*"
+prepare_data namespace.data "namespace_*"
 
 tail -n+2 host.data | tr -d , > host.values
 tail -n+2 container.data | tr -d , > container.values
+tail -n+2 namespace.data | tr -d , > namespace.values

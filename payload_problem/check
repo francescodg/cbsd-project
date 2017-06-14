@@ -1,0 +1,18 @@
+#!/usr/bin/python
+
+with open("container.values") as containerFile, \
+     open("namespace.values") as namespaceFile:
+    containerFileLines = containerFile.readlines()
+    namespaceFileLines = namespaceFile.readlines()
+    for i in xrange(len(containerFileLines)):
+        containerValue = float( containerFileLines[i].split(' ')[1] )
+        namespaceValue = float( namespaceFileLines[i].split(' ')[1] )
+        dataSize = int ( containerFileLines[i].split(' ')[0] )
+
+        outStr = "%d\t%.4f\t%.4f" % (dataSize, containerValue, namespaceValue)
+
+        if namespaceValue > containerValue:
+            outStr += "\t%.2f\tX" % ((containerValue - namespaceValue) / containerValue)
+
+        print outStr
+        

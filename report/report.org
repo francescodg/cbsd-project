@@ -1,7 +1,9 @@
 #+TITLE: Linux Containers Review
 #+AUTHOR: Francesco de Gioia
+#+LATEX_HEADER: \usepackage{subfig}
+#+LATEX_HEADER: \usepackage[margin=25mm]{geometry}
 
-#+LaTeX: \pagebreak
+\pagebreak
 
 \begin{abstract}
 \end{abstract}
@@ -170,18 +172,26 @@ From each /ab/ benchmark run three measurements are extracted: /Requests per sec
 #+CAPTION: Time required to complete a 10K payload request. Bridge overhead is visible.
 [[file:images/3.png]]
 
-#+CAPTION: Graph 1M payload
-[[file:images/net-large-1.png]]
+#+CAPTION: Comparative graph for different payload (128 bytes).
+[[file:images/net-payload-128.png]]
 
-#+CAPTION: Graph 1M payload
-[[file:images/net-large-2.png]]
-#+CAPTION: Graph 1M payload
-[[file:images/net-large-3.png]]
+#+CAPTION: Comparative graph for different payload (10 Kbytes).
+[[file:images/net-payload-10k.png]]
 
-#+CAPTION: Graph 128 payload
-[[file:images/net-small-2.png]]
-#+CAPTION: Graph 128 payload
-[[file:images/net-small-3.png]]
+#+CAPTION: Comparative graph for different payload (1 Mbyte).
+[[file:images/net-payload-1M.png]]
+
+\begin{figure}
+     \centering
+     \subfloat[Payload of 128 bytes]{\includegraphics[height=.4\textwidth]{images/net-variability-128.png}}\\
+     \subfloat[Payload of 10 Kbytes]{\includegraphics[height=.4\textwidth]{images/net-variability-10k.png}}\\
+     \subfloat[Payload of 1 Mbyte]{\includegraphics[height=.4\textwidth]{images/net-variability-1M.png}}
+     \caption{Variability analysis for different payloads.}
+     \label{steady_state}
+\end{figure}
+#+BEGIN_LATEX
+
+#+END_LATEX
 
 As expected, the maximum performance is obtained for a webserver running on "bare metal"; whereas a webserver in a network namespace provides minimum isolation without introducing additional
  overhead as in the case of a server deployed in a container.
@@ -191,7 +201,7 @@ The container performance drop should suggest that isolation without performance
  however containerization technologies, such as linux containers, provide a much richer set of features that improve security and support for proper isolation.
 Although the cost of the isolation with containers is non-trivial, it is still considerably lower than the cost introduced by a full virtual machine (as demonstrated in \hyperlink{1}{[1]}).\\
 A summary of the results obtained during the experiments is present in Table \ref{table:comparison-net}. It can be seen that containers introduce a certaint amount of overhead
-that is mainly due to bridging and other default security features. For comparison a namespace performance drop is limited to closer to bare metal performance with a drop limited to ~10%.
+that is mainly due to bridging and other default security features. For comparison a namespace performance drop is limited to closer to bare metal performance with a drop limited to \sim10%.
 
 #+CAPTION: The table collects the values obtained by the three server for the network benchmark. The performance drop of the container is evident when compared to the minimum loss of the 
 #+CAPTION: namespace server.
@@ -209,6 +219,9 @@ that is mainly due to bridging and other default security features. For comparis
 | 1M             | Request per second | 143.61 | 119.01 (-17.13%) | 129.06 (-10.13%) |
 |                | Time per request   |   6.98 | 8.40 (+20.46%)   | 7.76 (+11.28%)   |
 |----------------+--------------------+--------+------------------+------------------|
+|                |                    |        |                  |                  |
+|                |                    |        |                  |                  |
+
 ** Disk I/O: FIO Benchmark
 
 * Environment for test replication

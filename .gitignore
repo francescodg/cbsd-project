@@ -1,5 +1,12 @@
 *~
 benchmarks/
 pool/
+*.pyc
+
+# Org-mode output
+*.tex
+*.pdf
+*.html
+
 
 

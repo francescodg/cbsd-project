@@ -1,0 +1,26 @@
+#!/usr/bin/python
+
+import pandas
+import sys
+import utils
+
+def _remove_outliers(series, spread=3):
+    return series[~( (series - series.mean()).abs() > spread * series.std() )]
+
+if __name__ == "__main__":
+    filename = sys.argv[1]
+    spread = float(sys.argv[2])
+
+    dataframe = utils.read_dataframe(filename)
+    
+    cleanedDataframe = dataframe
+
+    for column in dataframe.columns:
+        series = dataframe[column]
+        cleaned = _remove_outliers(series, spread)
+        cleanedDataframe[column] = cleaned
+
+    cleanedDataframe = cleanedDataframe.dropna()
+    
+    for value in cleanedDataframe.values:
+        print value[0], value[1], value[2]

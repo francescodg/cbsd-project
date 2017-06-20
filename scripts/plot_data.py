@@ -1,7 +1,7 @@
 import subprocess
 import sys
 import json
-
+import pandas
 
 def compute_mean(filename, column):
     values = []

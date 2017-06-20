@@ -10,6 +10,30 @@
  #+BEGIN_QUOTE
 "It works on my machine." -- Unknown
  #+END_QUOTE
+
+Interest in containerization technologies is increasing as new tools such as Docker, LXC and OpenVZ are reaching maturity. Existing solutions to distributed computing 
+and software scalability problems are converging to "melting-pot architectures", such as Microservices, in an attempt to restructuring them in a formalized model.
+At the same time, cloud platforms such Amazon EC2, as well as newer Platform as a Service (PaaS) providers like Heroku and its competitor Docker Inc., are continuosly investing
+in developing user-friendly tools that ease the process of deploying distributed cloud services.
+
+In the distributed environment the arising pressing issues drive the development of novel tools that must be able to manage high level of parallelism, fault tolerance and scalability.
+However, for small team of developers migrating to complex cloud distributed systems may be too overwhelming and distracting. Hence, developing local solutions in a simulated distributed
+environment it is a much more appealing; it can help indentifing and fixing the bugs and inconsistencies, before running into production. 
+When the service has reached maturity, it is possible to migrate to a cloud system with minor modification.\\
+To achieve this level of flexibility, a system can be developed as a set of interactive microservices running in isolated containers, connected in a mesh topology, 
+that are able to communicate via well-defined interfaces. Existing models such as RESTful architectures, become valiable solutions that enhance code reusability while preserving
+a solid structure.
+
+Based on kernel containerization features similar to those used in linux containers, Docker containers further simplify the container development and distribution process by 
+providing a rich archive of pre-built images and flexible configuration files known as Docker files.
+More recently, Docker files are being included under version control systems in various projects, allowing developers to share systems with consistent configuration
+ among different hosts. Originally intended to solve the "it works on my machine" problem, Docker files are currently used as teaching tools and rapid prototyping.
+
+As reported in \hyperlink{1}{[1]}, Unix filesystem lacks of /configuration isolation/. Configuration files and shared libraries are accessible by all users, besides, modern applications
+may need many libraries and different versions of the same labrary. Traditionally, these problems have been solved by isolating software environments in separate hosts, or by means of virtual
+machines running on the same host. Containers provides light-weight solutions for the application isolation problem by reusing the same underlying kernel without the overhead introduced
+in the hardware virtualization layer (more in [[Containers]] and [[Virtual%20Machines][Virtual Machines]]).
+
 ** Containers
 Operating-system-level virtualization is a computer virtualization method in which the kernel of an operating system allows the existence of multiple isolated user-space instances.
 Such instances are sometimes called containers, virtualization engines (VEs) or jails (FreeBSD jail or chroot jail).
@@ -19,16 +43,16 @@ accessible from the outside world by setting up an appropriate interface. Also, 
 separate machines on the same physical network.
 
 The main difference between a container and a virtual machine is that a virtual machine is built upon a layer of virtualized hardware interfaces. This additional layer of indirection 
-introduces a significant amount of latency that may be untolerable for specific applications.\\
-Containers create isolated environments by relying on particular features of the underlying kernel. LXC, Linux Containers, uses the Unix kernel features /cgroups/ and /namespaces/ to
-provide isolation mechanisms.\\
-The strict dependency of containerization techniques on the underlying kernel, implies that container instances must share the same kernel. This may be a disadvantage for applications
-in which different operating systems, i.e. Windows and Linux, must be able to co-exist on the same host. For this kind of applications, virtual machines still provide feasible solutions.
+introduces a significant amount of latency that may be undesirable for specific applications.\\
+Containers create isolated environments by relying on particular features of the underlying kernel. LXC, Linux Containers, use the Unix kernel features /cgroups/ and /namespaces/ to
+provide isolation.\\
+The strict dependence of containerization techniques on the underlying kernel, implies that container instances must share the same kernel. This may be a disadvantage for applications
+in which different operating systems must be able to co-exist on the same host. For this kind of applications, virtual machines still provide feasible solutions.
 
 Since containers may be considered as "light virtual machines", many containers can be kept spinning on the same host. This allows developer to create complex, full stack environments
 with different configurations that can be used for testing or profiling.\\
-Containers can be used to simulate and develop distributed environments that can be easily moved in the cloud with minor modifications.\\
-Additionally, containers allow developers to create microservice architectures without incurring in the overhead of virtual machines.\\
+Containers can be used to simulate and develop distributed environments that can be easily moved in the cloud with minor modifications. Additionally, containers allow developers to create microservice
+ architectures without incurring in the overhead of virtual machines.\\
 For cloud space providers, containers are an efficient solution to create user-specific isolated environments that can be set-up with libraries, frameworks and databases as requested,
 without interfering with existing services.
 
@@ -37,22 +61,163 @@ without interfering with existing services.
 - [[https://blog.risingstack.com/operating-system-containers-vs-application-containers/][OS Container vs Application Container]]
 
 ** Virtual Machines
+Lorem ipsum.
+
 ** Microservices, a Container usage example
+
+Microservice Architecture /is a style of architecture that defines and creates systems through the use of small independent and self-contained services that align/
+/closely with business activities/ (from \hyperlink{3}{[3]}).
+
+In a monolith architecture, the full stack of services that support for the application run on the same host, sharing the same OS resources. There is no process isolation
+except the one provided by the hosting OS; configuration files, as well as system libraries, are shared among the running processes. Traditionally, monolith architecture
+have been used since they provide a consistent architecture, they are relatively easy to setup once the system functionalities have been defined. Optimization can improve
+performance that is not restricted by additional virtualization layers, as for Containers and Virtual Machines.
+Although, system functionalities tend change constantly, with new requirements coming from clients and old features becoming deprecated. Modern software design prevalently
+support for flexible architecture, rapid prototyping and immediate feedback.
+
+? Also scalability and parallelization can be somewhat harder to achieve in a monolith architecture.  but they represent the very nature of microservices instead. ?
+
+/A key part of developing a Microservice Architecture is to align with the single responsiblity principle, where a service has responsibilities for a single part of the functionalities/
+/provided by the software/ (from \hyperlink{3}{[3]}).\\
+The single responsibility principle is a general principle that applies in many areas of software design.
+It states that /a module should have only a single responsibility/; in \hyperlink{4}{[4]} it is restated as /a module should have only one reason to change/, meaning that if a module
+provides a given service, only changes that effect the behaviour or structure of the module's service should be addressed, no modification to external code should impose redisign 
+of the original module.
+
+Microservice Architecture aligns with the single responsibility principle because it is structured as a set of services that offer well-defined functionalities within
+isolated and self-contained environment.\\The main problem with a Microservice Architecture lies in the definition of a /line of granularity/, that differentiate a /micro/ service
+from /nano/ service or a /monolith/ architecture. A proper way to organize services comes from the definition of Microservice Architecture, that states that services align closely with
+business activities. These business activities can derive from a model of the client's business, as well as from an internal organization of the development team. In the first
+case, services tend to mimick the process workflow of the business, replacing human actors with software services. In the second case, the team can be splitted in smaller groups
+each assigned the development of a microservice. 
+
+Microservices are very well suited for the Cloud environment, where they originated. Cloud applications must run 24/7 be able to handle million if not billions of requests
+per second and manage similar numbers of physical and virtual resources. They must also provide a high degree of flexibility in order to support for worload peaks and system failures.\\
+Service designed for monitoring, load-balacing, and graceful restart should be developed along with the core business logic.\\
+These kind of services are inherently reusable therefore, if properly isolated and configured, they can used for many concurrent cloud applications.
+
+Containers provide an effordable solution to implement a Microservice Architecture. A container can host an entire stack of programs that are used by the service,
+can be configured to use a particular OS image and set up with service-specific libraries independentely installed from other containers.\\
+By creating a new container, a new clean environment is created. The container is viewed from other containers as a different machine accessible via a network interface,
+ although it runs on the same host. Since code is written natively for distributed architecture, only minor modification become necessary when there is the need to migrate
+microservices to other platforms (such as cloud providers or physical hosts).\\
+From a performance prospective, as previously explained, containers provide a ligther layer of virtualization than a virtual machine.
+In this report it will be highlighted that performance loss is minimal when an application is developed in container.
+An exhaustive comparison between container and virtual machine performance can be found in \hyperlink{1}{[1]} and \hyperlink{2}{[2]}.
+
+#+CAPTION: Comparison of a Monolith Architecture (left) and Microservices Architecture (right), (source: /martinfowler.com/).
+[[file:images/4.png]]
+
 * Benchmarks: Procedure and Results
 ** Environment Setup
 # Describe architecture on which the benchmarks are run
 
 - Descrizione architettura del sistema (CPU (turbo/hyperboost), RAM, Disk)
 - Descrizione dei benchmark
-
-*** Adopted Procedure
-
-*** Results
-
+- Procedure    
 
 ** Networking: Apache Benchmark
+
+The objective of this section is to compare the networking performance of a simple webserver deployed in three environments: native on host, inside a container and inside a network
+ namespace (linux netns). The experiment should confirm that maximum performance can be achieved on native host, however minor performance loss should be reached in the other two
+environments. A partial difference in latency measurements between the server running in the container and the one running in the namespace is expected due to the overhead introduced
+by the networking bridge used by linux containers.
+
+The three servers, from here on called container, namespace and host, all share the same codebase. In particular, a mounting point in the container has been set to automatically
+mount the codebase folder. At each container start-up the code is copied in a folder inside the container, this allows the copy to be owned by the container while keeping the codebase
+in synch.\\
+The webserver has been developed with the python Flask microframework. The flask server provides payload resources of different sizes and a random resource. The random resource accepts
+a /size/ parameter that specifies the amount of random raw data returned as a response by the server.\\
+
+Typical server requests are:
+
+#+BEGIN_SRC shell
+# Returns 2K of raw random data
+wget http://127.0.0.1:5000/data_2k
+
+# Returns 1K of raw random data
+wget http://127.0.0.1:5000/random?size=1024
+#+END_SRC
+
+The servers are run with rt priority and cpu affinity with CPU 0. Setting rt priority has been revealed to be necessary to reduce measurement variability (see [[Conclusions]]). 
+The loopback /lo/ interface MTU has been set to 1500, that is the MTU of the interfaces used by container and namespace. Similarly, the /txqueuelen/ has been set to 1000.
+Both parameters have been modified using the linux /ifconfig/ tool.
+
+The Apache Benchmark tool (/ab/) has been used to measure networking performance for the three webservers. The output has been disabled (-q option), cpu affinity has been set (taskset -c 1)
+and priority has been set to rt with FIFO scheduler (chrt -f 99). Since the flask multithread option has been disabled to simplify the measurements, the concurrency option for ab has been
+set to 1 (-c option). The number of requests is set to 100 unless specified otherwise.
+
+The test are run independently by allowing only a single server instance to be up for each benchmark run.\\
+Three benchmark scenario have been developed:
+1. Small payload request, with payload size 128 bytes.
+2. Medium payload request, with payload size 10K.
+3. Large payload request, with payload size 1M.
+
+Benchmarks are repeated a certaint amount of times in order to reduce noise, for each benchmark run the output is filtered to extract the relevant measurements and collected in /.data/ files.
+From each /ab/ benchmark run three measurements are extracted: /Requests per second [#/sec]/, /Transfer rate [Kbytes/sec]/ and /Time per request [ms]/. The data collected by each cycle of 
+100 benchmark run are then plotted using /gnuplot/ plotting tool. The test is then repeated for the three servers. As a final result the tests provide three /.data/ files: /container.data/,
+ /host.data/, /namespace.data/ and three plots.
+
+#+CAPTION: Number of served 10K payload requests per second for server running on native host, inside container and in network namespace.
+#+CAPTION: The lower values reported by the container may be related to the overhead introduced by the container's bridge.
+#+NAME: fig:comparison-response-10k
+[[file:images/1.png]]
+
+#+CAPTION: Transfer rate for 10K payload requests. Overhead introduced by the container bridge is noticeable.
+#+NAME: fig:comparison-transfer-10k
+[[file:images/2.png]]
+
+#+CAPTION: Time required to complete a 10K payload request. Bridge overhead is visible.
+[[file:images/3.png]]
+
+#+CAPTION: Graph 1M payload
+[[file:images/net-large-1.png]]
+
+#+CAPTION: Graph 1M payload
+[[file:images/net-large-2.png]]
+#+CAPTION: Graph 1M payload
+[[file:images/net-large-3.png]]
+
+#+CAPTION: Graph 128 payload
+[[file:images/net-small-2.png]]
+#+CAPTION: Graph 128 payload
+[[file:images/net-small-3.png]]
+
+As expected, the maximum performance is obtained for a webserver running on "bare metal"; whereas a webserver in a network namespace provides minimum isolation without introducing additional
+ overhead as in the case of a server deployed in a container.
+
+From the test data it can be assumed that newtwork performance loss is minimal for a webserver running in a container with respect to a webserver running on native host.
+The container performance drop should suggest that isolation without performance loss can be achieved by only using networking namespace isolation,
+ however containerization technologies, such as linux containers, provide a much richer set of features that improve security and support for proper isolation.
+Although the cost of the isolation with containers is non-trivial, it is still considerably lower than the cost introduced by a full virtual machine (as demonstrated in \hyperlink{1}{[1]}).\\
+A summary of the results obtained during the experiments is present in Table \ref{table:comparison-net}. It can be seen that containers introduce a certaint amount of overhead
+that is mainly due to bridging and other default security features. For comparison a namespace performance drop is limited to closer to bare metal performance with a drop limited to ~10%.
+
+#+CAPTION: The table collects the values obtained by the three server for the network benchmark. The performance drop of the container is evident when compared to the minimum loss of the 
+#+CAPTION: namespace server.
+#+LABEL: table:comparison-net
+|----------------+--------------------+--------+------------------+------------------|
+| *Payload size* |                    | *Host* | *Container*      | *Namespace*      |
+| *(bytes)*      |                    |        |                  |                  |
+|----------------+--------------------+--------+------------------+------------------|
+| 128            | Request per second | 933.90 | 878.52 (-5.93%)  | 882.13 (-5.54%)  |
+|                | Time per request   |   1.07 | 1.14 (+6.29%)    | 1.13 (+5.87%)    |
+|----------------+--------------------+--------+------------------+------------------|
+| 10K            | Request per second | 282.58 | 239.67 (-15.18%) | 277.29 (-1.87%)  |
+|                | Time per request   |   3.54 | 4.17 (+17.95%)   | 3.61 (+1.91%)    |
+|----------------+--------------------+--------+------------------+------------------|
+| 1M             | Request per second | 143.61 | 119.01 (-17.13%) | 129.06 (-10.13%) |
+|                | Time per request   |   6.98 | 8.40 (+20.46%)   | 7.76 (+11.28%)   |
+|----------------+--------------------+--------+------------------+------------------|
 ** Disk I/O: FIO Benchmark
+
 * Environment for test replication
 ** Setup scripts
 ** Benchmark runners
 * Conclusions
+* References
+1. \hypertarget{1} /Wes Felter/, /Alexandre Ferreira/, /Ram Rajamony/, /Juan Rubio/. An updated performance comparison of virtual machines and Linux containers.
+2. \hypertarget{2} /Stephen Soltesz/, /Herbert Pötzl/, /Marc E. Fiuczynski/, /Andy Bavier/, /Larry Peterson/. Container-based Operating System Virtualization:
+  A Scalable, High-performance Alternative to Hypervisors.
+3. \hypertarget{3} /Somasundram Balakrushnan, et. al/, Microservices Architecture.
+4. \hypertarget{4} /Martin/ ?

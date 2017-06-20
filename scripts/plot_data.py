@@ -66,12 +66,15 @@ def obtain_params(plot):
         })
         
         if s.has_key("show mean") and s["show mean"]:
-            series.append({
-                "input": "%f" % compute_mean(s["input"], s["column"]),
-                "title": s["title"] + " mean",
-                "color": s["color"]
-            })
-
+            try:
+                mean = compute_mean(s["input"], s["column"])
+                series.append({
+                    "input": "%f" % compute_mean(s["input"], s["column"]),
+                    "title": s["title"] + " mean",
+                    "color": s["color"]
+                })
+            except ValueError:
+                pass
     return (options, series)
 
         
